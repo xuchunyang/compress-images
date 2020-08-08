@@ -46,20 +46,34 @@
         <button>Compress</button>
       </div>
     </form>
-    <pre class="output"></pre>
+    <div class="output">
+      <pre class="message"></pre>
+      <p><a class="link"></a></p>
+    </div>
     <script>
       const input = document.querySelector("#file");
-      const output = document.querySelector(".output");
+      const outputMessage = document.querySelector(".output .message");
+      const outputLink = document.querySelector(".output .link");
 
       document.querySelector("form").onsubmit = (e) => {
         e.preventDefault();
         
         const file = input.files[0];
-        output.textContent = `Compressing ${file.name}...`;
+        outputMessage.textContent = `Compressing ${file.name}...`;
+        outputLink.textContent = "";
+        outputLink.href = "";
         fetch("api/compress", {method: "POST", body: file})
           .then(res => res.text())
-          .then(txt => output.textContent = txt)
-          .catch(error => output.textContent = error.message);
+          .then(txt => {
+            outputMessage.textContent = txt;
+            const json = JSON.parse(txt);
+            const url = json.output.url;
+            if (url) {
+              outputLink.textContent = `Result image: ${url}`;
+              outputLink.href = url;
+            }
+          })
+          .catch(error => outputMessage.textContent = error.message);
       }
     </script>
   </body>
