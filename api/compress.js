@@ -22,6 +22,8 @@ module.exports = (req, res) => {
       res.statusCode = tinifyRes.statusCode;
 
       // console.log(tinifyRes.headers);
+      if (tinifyRes.headers.location)
+        res.setHeader("location", tinifyRes.headers.location);
 
       let tinifyBody = [];
       tinifyRes.on("data", chunk => tinifyBody.push(chunk));
