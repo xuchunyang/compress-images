@@ -31,6 +31,7 @@
         text-align: left;
         background-color: #eee;
         color: #333;
+        padding: 0 1em;
       }
     </style>
   </head>
@@ -54,6 +55,7 @@
         e.preventDefault();
         
         const file = input.files[0];
+        output.textContent = `Compressing ${file.name}...`;
         fetch("api/compress", {method: "POST", body: file})
           .then(res => res.text())
           .then(txt => output.textContent = txt)
