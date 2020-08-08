@@ -34,6 +34,5 @@ cache-control: s-maxage=0
         "ratio": 0.2206,
         "url": "https://api.tinify.com/output/rq03mkpzguz1h6d91mnnmunxjwghb2y9"
     }
-}%
-...
+}
 ```
