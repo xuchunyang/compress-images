@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Compress images</title>
+    <style>
+      body {
+        max-width: 750px;
+        margin: 0 auto;
+        line-height: 1.5;
+        text-align: center;
+      }
+
+      form {
+        margin: 2em 0;
+      }
+
+      .input-and-button {
+        display: flex;
+        justify-content: space-around;
+      }
+
+      input,
+      button {
+        font-size: 100%;
+      }
+
+      pre {
+        text-align: revert;
+        background-color: #eee;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Compress images</h1>
+    <p>The service is powered by <a href="https://tinypng.com/">TinyPNG</a>'s
+      API. .jpg and .png are supported.</p>
+    <form>
+      <p><label for="file">Select .jpg or .png file:</label></p>
+      <div class="input-and-button">
+        <input id="file" type="file" accept=".png,.jpg" required>
+        <button>Compress</button>
+      </div>
+    </form>
+    <pre class="output"></pre>
+    <script>
+      const input = document.querySelector("#file");
+      const output = document.querySelector(".output");
+
+      document.querySelector("form").onsubmit = (e) => {
+        e.preventDefault();
+        
+        const file = input.files[0];
+        fetch("api/compress", {method: "POST", body: file})
+          .then(res => res.text())
+          .then(txt => output.textContent = txt)
+          .catch(error => output.textContent = error.message);
+      }
+    </script>
+  </body>
+</html>
