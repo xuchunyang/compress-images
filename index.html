@@ -48,7 +48,7 @@
     </form>
     <div class="output">
       <pre class="message"></pre>
-      <p><a class="link"></a></p>
+      <p class="link"></p>
     </div>
     <script>
       const input = document.querySelector("#file");
@@ -60,8 +60,7 @@
         
         const file = input.files[0];
         outputMessage.textContent = `Compressing ${file.name}...`;
-        outputLink.textContent = "";
-        outputLink.href = "";
+        outputLink.innerHTML = "";
         fetch("api/compress", {method: "POST", body: file})
           .then(res => res.text())
           .then(txt => {
@@ -69,8 +68,7 @@
             const json = JSON.parse(txt);
             const url = json.output.url;
             if (url) {
-              outputLink.textContent = `Result image: ${url}`;
-              outputLink.href = url;
+              outputLink.innerHTML = `Result image: <a href="${url}">${url}</a>`;
             }
           })
           .catch(error => outputMessage.textContent = error.message);
