@@ -4,8 +4,16 @@ const apiUrl = "https://api.tinify.com/shrink";
 const apiKey = "5l0PWMc7ZHadFIJR2X8vjp1Z1UWXRBE2";
 
 module.exports = (req, res) => {
-  // does this api work with cors? TODO test
-  // res.setHeader("Access-Control-Allow-Origin", "*");
+  if (req.method === "OPTIONS") {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    // not sure about these two headers
+    res.setHeader("Access-Control-Allow-Methods", "*");
+    res.setHeader("Access-Control-Allow-Headers", "*");
+    res.end();
+    return;
+  }
+  
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Content-Type", "application/json");
   
   if (req.method !== "POST") {
