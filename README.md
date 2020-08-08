@@ -2,7 +2,7 @@
 
 https://compress-images.vercel.app/
 
-![screen shot of the website](Screen-Shot-2020-08-09-at-01.42.17.png)
+![screen shot of the website](image.png)
 
 ## API
 
@@ -13,6 +13,7 @@ $ curl -i --data-binary @image.png https://compress-images.vercel.app/api/compre
 HTTP/2 201
 content-type: application/json
 location: https://api.tinify.com/output/rq03mkpzguz1h6d91mnnmunxjwghb2y9
+access-control-allow-origin: *
 content-length: 301
 date: Sat, 08 Aug 2020 17:49:11 GMT
 x-vercel-cache: MISS
