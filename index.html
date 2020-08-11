@@ -33,6 +33,10 @@
         color: #333;
         padding: 0 1em;
       }
+
+      img {
+        max-width: 100%;
+      }
     </style>
   </head>
   <body>
@@ -49,11 +53,13 @@
     <div class="output">
       <pre class="message"></pre>
       <p class="link"></p>
+      <img>
     </div>
     <script>
       const input = document.querySelector("#file");
       const outputMessage = document.querySelector(".output .message");
       const outputLink = document.querySelector(".output .link");
+      const outputImg = document.querySelector(".output img");
 
       document.querySelector("form").onsubmit = (e) => {
         e.preventDefault();
@@ -61,6 +67,8 @@
         const file = input.files[0];
         outputMessage.textContent = `Compressing ${file.name}...`;
         outputLink.innerHTML = "";
+        outputImg.src = "";
+        outputImg.alt = "";
         fetch("api/compress", {method: "POST", body: file})
           .then(res => res.text())
           .then(txt => {
@@ -69,6 +77,8 @@
             const url = json.output.url;
             if (url) {
               outputLink.innerHTML = `Result image: <a href="${url}">${url}</a>`;
+              outputImg.src = url;
+              outputImg.alt = `the compressed output of ${file.name}`;
             }
           })
           .catch(error => outputMessage.textContent = error.message);
